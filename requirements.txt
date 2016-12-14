@@ -1,0 +1,2 @@
+# Windowing and drawing
+pysdl2==0.9.5
