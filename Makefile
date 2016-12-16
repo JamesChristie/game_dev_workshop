@@ -12,6 +12,10 @@ init:
 test:
 	./pyspec.sh
 
+ci-test:
+	$(MAKE) check
+	./pyspec.sh
+
 source:
 	$(PYTHON) setup.py sdist
 
