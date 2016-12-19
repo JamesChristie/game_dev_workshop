@@ -1,4 +1,5 @@
-PYTHON=`which python`
+PIP=`which pip`
+PYTHON=`which python3`
 NAME=`python setup.py --name`
 
 all: init dev source
@@ -6,21 +7,24 @@ all: init dev source
 dev: check test
 
 init:
-	pip install -r requirements-dev.txt
-	pip install -r requirements.txt
+	$(PIP) install -r requirements-dev.txt
+	$(PIP) install -r requirements.txt
 
 test:
 	./pyspec.sh
 
 ci-test:
-	$(MAKE) check
+	$(MAKE) strict-lint
 	./pyspec.sh
 
 source:
 	$(PYTHON) setup.py sdist
 
-check:
+lint:
 	find . -name \*.py | grep -v "tests/*test_*.py" | xargs pylint --errors-only --reports=n
+
+strict-lint:
+	find . -name \*.py | grep -v "tests/*test_*.py" | xargs pylint --reports=n
 
 clean:
 	$(PYTHON) setup.py clean

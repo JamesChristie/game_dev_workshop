@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 SPEC_DIRECTORY="tests"
+PYTHON="python3"
 
-if ! command -v python &>/dev/null; then
-  echo "python command not found, please ensure python is installed and in your PATH." 1>&2
+if ! command -v $PYTHON &>/dev/null; then
+  echo "The '${PYTHON}' command not found, please ensure Python 3 is installed and in your PATH." 1>&2
   exit 1
 fi
 
@@ -14,7 +14,7 @@ if [ ! -d "${SPEC_DIRECTORY}" ]; then
 fi
 
 if [ -n $1 ]; then
-  python -m unittest $1
+  $PYTHON -m unittest $1
 else
-  python -m unittest discover $SPEC_DIRECTORY
+  $PYTHON -m unittest discover $SPEC_DIRECTORY
 fi
